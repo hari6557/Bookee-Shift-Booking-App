@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Button from "../Button";
 
 const Shifts: FC<IShifts.IProps> = ({
@@ -10,9 +10,9 @@ const Shifts: FC<IShifts.IProps> = ({
   isOverlapping,
   showArea,
   timeStamp,
-  loader
+  loader,
+  currentTime
 }) => {
-
   return (
     <div className="flex items-center">
       <div className="text-18">
@@ -41,7 +41,7 @@ const Shifts: FC<IShifts.IProps> = ({
             loaderClassName = 'border-[#E2006A] border-r-[#EED2DF] border-b-[#EED2DF]'
             className="min-w-120 border-[#FE93B3] text-[#E2006A] text-extrabold"
             onClick={handleCancel}
-            disabled={false}
+            disabled={currentTime}
             loader={loader}
           />
         )}

@@ -54,14 +54,3 @@ export const isCurrentTime = (startTime: number, endTime: number) :boolean => {
     const shiftEndTime = new Date(endTime).getTime();
     return currentTimestamp >= shiftStartTime && currentTimestamp <= shiftEndTime;
 }
-
-export const calculateTotalHours = (shifts: any[]): number => {
-  let totalHours = 0;
-  shifts.forEach((shift) => {
-    const startTime = new Date(shift.startTime).getTime();
-    const endTime = new Date(shift.endTime).getTime();
-    const shiftDuration = (endTime - startTime) / (1000 * 60 * 60); // Convert to hours
-    totalHours += shiftDuration;
-  });
-  return totalHours;
-};

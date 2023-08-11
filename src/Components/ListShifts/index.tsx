@@ -1,6 +1,7 @@
-import React, { FC, Fragment } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import {
   formatSimpleTime,
+  isCurrentTime,
   minutesToTime,
   timeDiffBetween,
 } from "../../Utils/utils";
@@ -15,10 +16,23 @@ const ListShifts: FC<IListShift.IProps> = ({
   showArea,
   showShiftsAmount,
   overLappingList,
+  
 }) => {
   const data = useRecoilValue(shiftsState);
   const loader = useRecoilValue(loadingIds)
   const { bookShift, cancelShift } = useShiftActions();
+  const [currentTime, setCurrentTime] = useState<boolean>(false);
+
+  useEffect(()=>{
+    Object.keys(list).map((date)=>{
+      list[date].map((id : any)=>{
+        const startTime = data[id].startTime;
+        const endTime = data[id].endTime
+        const time = isCurrentTime(startTime, endTime)
+        setCurrentTime(time);
+      })
+    })
+  },[list])
 
   return (
     <div className="border-solid border-1 border-gray-300">
@@ -77,6 +91,7 @@ const ListShifts: FC<IListShift.IProps> = ({
                           cancelShift(id);
                         }}
                         loader={loader[id]}
+                        currentTime={currentTime}
                       />
                     </li>
                   ) : (

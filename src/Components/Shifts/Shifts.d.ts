@@ -9,5 +9,6 @@ declare namespace IShifts {
         handleBook : ()=> void
         handleCancel : () => void
         loader : boolean
+        currentTime : boolean
     }
 }
